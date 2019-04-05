@@ -6,46 +6,30 @@
  * @return { Number }         Lowest Positive Number that is evenly divisible by all numbers
  *                            between 1 and `ceiling`
  */
-module.exports = function( ceiling ) {
+module.exports = function (ceiling) {
   // do work here
-    
-  var allPrime = [];
-  let LCM = 0;
-
-  function findPrimeFactors (num) {
-    while (num % 2 === 0) {
-        allPrime.push(2);
-        num = num / 2;
+  function range(ceiling) {
+    var arr = [];
+    for (var i = 1; i <= ceiling; i++) {
+      arr.push(i);
     }
-  
-    var sqrtNum = Math.sqrt(num);
-    for (var i = 3; i <= sqrtNum; i++) {
-        while (num % i === 0) {
-            primeFactors.push(i);
-            num = num / i;
-        }
-    }
-
-    if (num > 2) {
-        allPrime.push(num);
-    }
-  }
-  
-  for(let a=2; a<x+1; a++){
-    findPrimeFactors(a);
-  }
-  
-  allPrime.sort();
-
-  //not yet done!!
-  for(let b=0; b<allPrime.length; b++){
-   
+    return arr;
   }
 
- let currentNum = 0;
- let instances = 0;
-  
-  console.log(allPrime);
+  function gcd(a, b) {
+    if (!b) {
+      return a;
+    };
+    return gcd(b, a % b);
+  }
 
-  return 0;
+  function lcm(a, b) {
+    return (a * b) / gcd(a, b);
+  }
+
+  var multiple = 1;
+  range(ceiling).forEach(function (n) {
+    multiple = lcm(multiple, n);
+  });
+  return multiple;
 };
